@@ -13,7 +13,7 @@ from Fight_action import Fight_action
 
 
 def main():
-    print("Hello world")
+
     stats_manager = Stats_manager(hp=100, coins_count=10, damage=15, agility=10)
 
     inventory = Inventory()
