@@ -1,4 +1,4 @@
-from Character import Character
+from Character import *
 
 
 class Alchemist(Character):

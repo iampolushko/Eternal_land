@@ -4,7 +4,7 @@ import traceback
 
 from Inventory import Inventory
 from Stats_manager import Stats_manager
-
+from Ui_manager import *
 class Game_manager:
 
     def __init__(self, character):
@@ -15,28 +15,28 @@ class Game_manager:
 
 
     def open_inventory(self):
-        print(self.__character.inventory.get_items_names())
+        Ui_manager.output(self.__character.inventory.get_items_names())
 
-        print("Что делать дальше?: 1 - Исп предмет; 2 - Закрыть инвентарь")
+        Ui_manager.output("Что делать дальше?: 1 - Исп предмет; 2 - Закрыть инвентарь")
 
         while True:
             try:
-                option = int(input())
+                option = Ui_manager.input_int()
                 break
             except:
-                print("Вы ввели неверный ввод")
+                Ui_manager.output("Вы ввели неверный ввод")
 
         if option == 1:
 
             while True:
                 try:
-                    print("Введите имя предмета, который хотите использовать")
-                    item_name = input()
+                    Ui_manager.output("Введите имя предмета, который хотите использовать")
+                    item_name = Ui_manager.input()
                     item = self.__character.inventory.get_item_from_name(item_name)
                     break
                 except Exception as exc:
 
-                    print(exc)
+                    Ui_manager.output(exc)
 
             if item == None:
                 return
@@ -47,7 +47,7 @@ class Game_manager:
         elif option == 2:
             return
         else:
-            print("Вы ввели неверное число")
+            Ui_manager.output("Вы ввели неверное число")
             return
 
 

@@ -1,16 +1,16 @@
 import random
 
-from Stats_manager import Stats_manager
-from Food import Food
-from Walking_action import Walking_action
-from Inventory import Inventory
-from Game_manager import Game_manager
-from Money_bag import Money_bag
-from Character import Character
-from Alchemist import Alchemist
-from Enemy import Enemy
-from Fight_action import Fight_action
-
+from Stats_manager import *
+from Food import *
+from Walking_action import *
+from Inventory import *
+from Game_manager import *
+from Money_bag import *
+from Character import *
+from Alchemist import *
+from Enemy import *
+from Fight_action import *
+from Ui_manager import *
 
 def main():
     stats_manager = Stats_manager(hp=100, coins_count=10, damage=15, agility=10)
@@ -18,14 +18,14 @@ def main():
     inventory = Inventory()
 
     character = None
-    print("Ты кто по масти?: 1 - Алхимик; 2 - Крашнуть проект")
+    Ui_manager.output("Ты кто по масти?: 1 - Алхимик; 2 - Крашнуть проект")
 
     while True:
         try:
             character_choice = int(input())
             break
         except:
-            print("Вы ввели неправельный ввод")
+            Ui_manager.output("Вы ввели неправельный ввод")
 
     if character_choice == 1:
         character = Alchemist(stats_manager, inventory)
@@ -56,13 +56,13 @@ def main():
     fight_action = Fight_action([enemy1, enemy2])
     game_manager.add_action(fight_action)
 
-    print("Добро пожаловать в EternalLand")
+    Ui_manager.output("Добро пожаловать в EternalLand")
     while True:
-        print("Что вы желаете сделать? 1)Идти дальше; 2)Открыть инвентарь; 3)Посмотреть статы персонажа")
+        Ui_manager.output("Что вы желаете сделать? 1)Идти дальше; 2)Открыть инвентарь; 3)Посмотреть статы персонажа")
 
         while True:
             try:
-                choise = int(input())
+                choise = Ui_manager.input_int()
                 break
             except:
                 print("Вы ввели неверный ввод")
@@ -80,10 +80,10 @@ def main():
             break
 
         else:
-            print("Вы ввели говно")
+            Ui_manager.output("Вы ввели говно")
 
         if character.stats_manager.is_alive() == False:
-            print("Ты и твоя мать мертвы")
+            Ui_manager.output("Ты и твоя мать мертвы")
             break
 
 

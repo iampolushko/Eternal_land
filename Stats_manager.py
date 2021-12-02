@@ -1,3 +1,6 @@
+from Ui_manager import *
+
+
 class Stats_manager:
 
     def __init__(self, hp, coins_count, damage, agility):
@@ -11,9 +14,9 @@ class Stats_manager:
         self.__hp += value
 
         if value > 0:
-            print(f"Вы исцелились на {value}")
+            Ui_manager.output(f"Вы исцелились на {value}")
         if value < 0:
-            print(f"Вы получили урон {value}")
+            Ui_manager.output(f"Вы получили урон {value}")
 
         if self.__hp < 0:
             self.__is_alive = False
@@ -24,7 +27,7 @@ class Stats_manager:
     def change_coins_count(self, amount):
         self.__coins_count += amount
         if self.__coins_count < 0:
-            print("У вас слишком мало деняк")
+            Ui_manager.output("У вас слишком мало деняк")
 
     def show_stats(self):
-        print("У вас ", self.__hp, "HP ,", self.__coins_count, "Монет и", self.damage, "Нанесённого урона")
+        Ui_manager.output(f"У вас  {self.__hp}, HP , {self.__coins_count} Монет и {self.damage} Нанесённого урона")

@@ -1,5 +1,5 @@
-from Item import Item
-
+from Item import *
+from Ui_manager import *
 
 class Food(Item):
 
@@ -8,6 +8,6 @@ class Food(Item):
         self.satiety = satiety
 
     def do_it(self, stats_manager):
-        print(f"Вы съели {self.name}")
-        stats_manager.change_hp(self.satiety)
 
+        Ui_manager.output(f"Вы съели {self.name}")
+        stats_manager.change_hp(self.satiety)

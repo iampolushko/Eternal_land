@@ -1,5 +1,7 @@
-from Game_action import Game_action
 import random
+
+from Game_action import *
+from Ui_manager import *
 
 
 class Fight_action(Game_action):
@@ -9,7 +11,7 @@ class Fight_action(Game_action):
 
     def happen(self, character):
         enemy_count = random.randint(1, int(len(self.enemies) / 10 + 1))
-        print(f"Вы наткнулись на {enemy_count} врагов")
+        Ui_manager.output(f"Вы наткнулись на {enemy_count} врагов")
         enemies_in_fight = list()
         while True:
             enemies_in_fight.append(self.enemies[random.randint(0, len(self.enemies) - 1)])
@@ -18,29 +20,29 @@ class Fight_action(Game_action):
                 break
 
         for enemy in enemies_in_fight:
-            print(f"Вы столкнудись с {enemy.name}")
-            print(f"{enemy.name}: {enemy.phrase}")
+            Ui_manager.output(f"Вы столкнудись с {enemy.name}")
+            Ui_manager.output(f"{enemy.name}: {enemy.phrase}")
             option = None
 
             while True:
 
                 while True:
-                    print("Ваши действия: 1)Нанести удар 2)Воспользоваться классовой способностью 3)БЕГИТ")
+                    Ui_manager.output("Ваши действия: 1)Нанести удар 2)Воспользоваться классовой способностью 3)БЕГИТ")
                     try:
-                        option = int(input())
+                        option = Ui_manager.input_int()
                         break
                     except:
-                        print("Неверный ввод")
+                        Ui_manager.output("Неверный ввод")
 
                 player_damage = character.stats_manager.damage
                 enemy_damage = enemy.damage
 
                 if option == 1:
                     enemy.change_hp(-player_damage)
-                    print(f"Вы нанесли {player_damage} урона")
+                    Ui_manager.output(f"Вы нанесли {player_damage} урона")
                     character.stats_manager.change_hp(-enemy_damage)
                 elif option == 2:
-                    print("Вы восползьзовались классовой способностью")
+                    Ui_manager.output("Вы восползьзовались классовой способностью")
                     character.use_character_ability()
                 elif option == 3:
                     result = random.randint(0, 100)
@@ -49,10 +51,10 @@ class Fight_action(Game_action):
                     else:
                         character.stats_manager.change_hp(-(enemy_damage * 1.5))
                 else:
-                    print("Неправельный ввод")
+                    Ui_manager.output("Неправельный ввод")
 
                 if enemy.is_alive() == False:
-                    print(f"Вы победили {enemy.name}")
+                    Ui_manager.output(f"Вы победили {enemy.name}")
                     character.inventory.add_items(enemy.loot)
                     break
 

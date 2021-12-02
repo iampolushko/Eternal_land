@@ -1,5 +1,5 @@
-from Item import Item
-
+from Item import *
+from Ui_manager import *
 
 class Money_bag(Item):
 
@@ -9,4 +9,4 @@ class Money_bag(Item):
 
     def do_it(self, stats_manager):
         stats_manager.change_coins_count(self.__money_count)
-        print(f"Вы получли {self.__money_count} монет")
+        Ui_manager.output(f"Вы получли {self.__money_count} монет")
