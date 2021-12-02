@@ -13,6 +13,7 @@ from Fight_action import *
 from Ui_manager import *
 
 def main():
+
     stats_manager = Stats_manager(hp=100, coins_count=10, damage=15, agility=10)
 
     inventory = Inventory()
