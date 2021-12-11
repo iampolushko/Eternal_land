@@ -1,4 +1,5 @@
 import random
+from tkinter import *
 
 from Stats_manager import *
 from Food import *
@@ -12,26 +13,27 @@ from Enemy import *
 from Fight_action import *
 from Ui_manager import *
 
+
 def main():
+    Ui_manager.run()
 
     stats_manager = Stats_manager(hp=100, coins_count=10, damage=15, agility=10)
-
     inventory = Inventory()
 
     character = None
-    Ui_manager.output("Ты кто по масти?: 1 - Алхимик; 2 - Крашнуть проект")
+    Ui_manager.create_label("Ты кто по масти?: 1 - Алхимик; 2 - Крашнуть проект")
 
-    while True:
-        try:
-            character_choice = int(input())
-            break
-        except:
-            Ui_manager.output("Вы ввели неправельный ввод")
+    Ui_manager.add_radiobutton(input_massage="Алхимик", value=1)
+    Ui_manager.add_radiobutton(input_massage="Крашнуть проект", value=2)
 
-    if character_choice == 1:
+    result = Ui_manager.wait_result()
+
+    if result == 1:
         character = Alchemist(stats_manager, inventory)
-    elif character_choice == 2:
+    elif result == 2:
         character = Character(stats_manager, inventory)
+
+    Ui_manager.clear()
 
     apple = Food("apple", 5)
     inventory.add_item(apple)
@@ -57,34 +59,32 @@ def main():
     fight_action = Fight_action([enemy1, enemy2])
     game_manager.add_action(fight_action)
 
-    Ui_manager.output("Добро пожаловать в EternalLand")
+    Ui_manager.create_label("Добро пожаловать в EternalLand")
+    Ui_manager.wait_continue()
+    Ui_manager.clear()
+
     while True:
-        Ui_manager.output("Что вы желаете сделать? 1)Идти дальше; 2)Открыть инвентарь; 3)Посмотреть статы персонажа")
+        Ui_manager.create_label("Что вы желаете сделать?")
 
-        while True:
-            try:
-                choise = Ui_manager.input_int()
-                break
-            except:
-                print("Вы ввели неверный ввод")
+        Ui_manager.add_radiobutton(input_massage="Идти дальше", value=1)
+        Ui_manager.add_radiobutton(input_massage="Открыть инвентарь", value=2)
+        Ui_manager.add_radiobutton(input_massage="Посмотреть статы персонажа", value=3)
+        result = Ui_manager.wait_result()
+        Ui_manager.clear()
 
-        if choise == 1:
+        if result == 1:
             game_manager.uptade()
 
-        elif choise == 2:
+        elif result == 2:
             game_manager.open_inventory()
 
-        elif choise == 3:
+        elif result == 3:
             stats_manager.show_stats()
 
-        elif choise == 666:
-            break
-
-        else:
-            Ui_manager.output("Вы ввели говно")
-
         if character.stats_manager.is_alive() == False:
-            Ui_manager.output("Ты и твоя мать мертвы")
+            Ui_manager.create_label("Ты и твоя мать мертвы")
+            Ui_manager.wait_continue()
+            Ui_manager.clear()
             break
 
 

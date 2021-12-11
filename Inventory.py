@@ -33,10 +33,6 @@ class Inventory:
             if item_name == item.name:
                 sought_item = item
 
-        if sought_item == None:
-            raise Exception("Не удалось найти предмет")
-            return
-
         return sought_item
 
     def use_item(self, item, stats_manager):
@@ -47,10 +43,20 @@ class Inventory:
         item.do_it(stats_manager)
         self.remove_item(item)
 
-    def get_items_names(self):
-        names = "| "
+    def get_items_name_to_list(self):
+        names = list()
 
         for item in self.__items:
-            names += item.name + " X" + str(item.count) + " | "
+            names.append(item.name + " " + str(item.count) + "шт")
 
         return names
+
+    def get_item_from_index(self, index):
+        item = None
+        try:
+            item = self.__items[index]
+            return item
+        except:
+            raise Exception("Предмета с указанным индексом не существует в инвентаре")
+
+

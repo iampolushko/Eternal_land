@@ -16,9 +16,13 @@ class Walking_action(Game_action):
     def happen(self, character):
         chance = random.randint(1, 10)
         if chance == 1:
-            character.player.change_hp(-10)
-            Ui_manager.output("Вы споткнулись, ваше HP уменьшелось на 10")
+            character.stats_manager.change_hp(-10)
+            Ui_manager.create_label("Вы споткнулись, ваше HP уменьшелось на 10")
+            Ui_manager.wait_continue()
+            Ui_manager.clear()
             return
 
         discription_index = random.randint(0, len(self.__discriptions) - 1)
-        Ui_manager.output(self.__discriptions[discription_index])
+        Ui_manager.create_label(self.__discriptions[discription_index])
+        Ui_manager.wait_continue()
+        Ui_manager.clear()
