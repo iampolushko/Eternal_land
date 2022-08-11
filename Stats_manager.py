@@ -35,7 +35,14 @@ class Stats_manager:
             Ui_manager.wait_continue()
             Ui_manager.clear()
 
+    def change_player_damage(self, amount):
+        self.damage += amount
+        Ui_manager.create_label(f"Вы наносите на {amount} больше урона. Ваш урон равен {self.damage} единицам")
+
     def show_stats(self):
-        Ui_manager.create_label(f"У вас  {self.__hp}, HP , {self.__coins_count} Монет и {self.damage} Нанесённого урона")
+        Ui_manager.create_label(f"У вас  {self.__hp}, HP , {self.__coins_count} Монет и вы наносите {self.damage} урона")
         Ui_manager.wait_continue()
         Ui_manager.clear()
+
+    def show_coins(self):
+        return self.__coins_count

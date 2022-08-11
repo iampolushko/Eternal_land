@@ -14,8 +14,13 @@ class Game_manager:
         self.__game_actions = list()
 
     def open_inventory(self):
+        inventory = self.__character.inventory
+        items_mass = []
+        for item_name in inventory.get_items_name_to_list():
+            items_mass.append(item_name)
 
-        Ui_manager.create_label("Что делать дальше?")
+        Ui_manager.create_label(f"У вас в инвенторе {items_mass} "
+                                f"\nЧто делать дальше?")
 
         Ui_manager.add_radiobutton(input_massage="Исп предмет", value=1)
         Ui_manager.add_radiobutton(input_massage="Закрыть инвентарь", value=2)
@@ -30,13 +35,17 @@ class Game_manager:
             for item_name in inventory.get_items_name_to_list():
                 Ui_manager.add_radiobutton(input_massage=item_name, value=i)
                 i += 1
+            Ui_manager.add_radiobutton(input_massage="Закрыть инвентарь", value=1000)
 
             index = Ui_manager.wait_result()
             Ui_manager.clear()
 
-            item = inventory.get_item_from_index(index - 1)
+            if index == 1000:
+                return
+            else:
+                item = inventory.get_item_from_index(index - 1)
 
-            inventory.use_item(item, self.__character.stats_manager)
+                inventory.use_item(item, self.__character.stats_manager)
 
         elif result == 2:
             return

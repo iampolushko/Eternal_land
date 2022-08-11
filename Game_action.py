@@ -1,8 +1,7 @@
-from abc import ABC, abstractmethod
-
+from abc import *
 
 class Game_action(ABC):
 
-    @abstractmethod
+
     def happen(self, character):
         pass

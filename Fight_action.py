@@ -10,7 +10,7 @@ class Fight_action(Game_action):
         self.enemies = list(enemies)
 
     def happen(self, character):
-        enemy_count = random.randint(1, int(len(self.enemies) / 10 + 1))
+        enemy_count = random.randint(1, int(len(self.enemies)))
         Ui_manager.create_label(f"Вы наткнулись на {enemy_count} врагов")
         Ui_manager.wait_continue()
         Ui_manager.clear()
@@ -43,8 +43,6 @@ class Fight_action(Game_action):
 
                 if result == 1:
                     enemy.change_hp(-player_damage)
-                    Ui_manager.create_label(f"Вы нанесли {player_damage} урона")
-                    Ui_manager.wait_continue()
                     Ui_manager.clear()
                     character.stats_manager.change_hp(-enemy_damage)
                 elif result == 2:
@@ -60,9 +58,11 @@ class Fight_action(Game_action):
                         character.stats_manager.change_hp(-(enemy_damage * 1.5))
 
                 if enemy.is_alive() == False:
-                    Ui_manager.create_label(f"Вы победили {enemy.name}")
-                    Ui_manager.wait_continue()
-                    Ui_manager.clear()
+                    for item in enemy.loot:
+                        Ui_manager.create_label(f"Вы победили {enemy.name}, и получили {item.name}")
+                        Ui_manager.wait_continue()
+                        Ui_manager.clear()
+
                     character.inventory.add_items(enemy.loot)
                     break
 

@@ -12,3 +12,4 @@ class Food(Item):
         Ui_manager.create_label(f"Вы съели {self.name}")
         Ui_manager.clear()
         stats_manager.change_hp(self.satiety)
+
